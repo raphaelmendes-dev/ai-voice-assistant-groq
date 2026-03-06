@@ -18,15 +18,19 @@ class ChatGPTAssistant:
             os.makedirs(self.log_dir)
 
     def _save_log(self, user_msg, bot_msg):
-        """Salva a interação no arquivo de log com timestamp"""
+        """Salva a interação no arquivo de log com data no nome"""
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        filename = f"conversa_{datetime.now().strftime('%Y-%m-%d')}.txt"
+        
         log_entry = (
             f"============================================================\n"
             f"[{timestamp}]\n"
             f"👤 USUÁRIO: {user_msg}\n"
-            f"🤖 JARVIS: {bot_msg}\n"
+            f"🤖 ASSISTENTE: {bot_msg}\n"
         )
-        with open(os.path.join(self.log_dir, "conversa.txt"), "a", encoding="utf-8") as f:
+        
+        caminho_completo = os.path.join(self.log_dir, filename)
+        with open(caminho_completo, "a", encoding="utf-8") as f:
             f.write(log_entry)
 
     def get_response(self, user_message):
@@ -39,10 +43,19 @@ class ChatGPTAssistant:
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[
-                    {"role": "system", "content": "Você é o Jarvis do Homem de Ferro. Responda de forma elegante, chame o usuário de 'Senhor' e seja muito eficiente."},
+                    # MUDANÇA: Personalidade da Luna para a Nexus Atendimentos
+                    {
+                        "role": "system", 
+                        "content": (
+                            "Você é a Luna, assistente virtual da Nexus Atendimentos. "
+                            "Nosso horário de funcionamento é de segunda a sexta, das 08h às 18h. "
+                            "Se o cliente quiser falar com um humano, diga que vai transferir a ligação agora mesmo. "
+                            "IMPORTANTE: Suas respostas devem ser curtas, com no máximo 2 frases, e sempre muito cordiais."
+                        )
+                    },
                     *self.history
                 ],
-                max_tokens=150
+                max_tokens=300
             )
             bot_response = response.choices[0].message.content
             self.history.append({"role": "assistant", "content": bot_response})
