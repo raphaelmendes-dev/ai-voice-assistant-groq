@@ -1,91 +1,171 @@
-[![Status](https://img.shields.io/badge/Status-MVP%20Completed-brightgreen)](https://github.com/raphaelmendes-dev/ai-voice-assistant-groq)
+[![Status](https://img.shields.io/badge/Status-Live%20in%20Production-brightgreen)](https://ai-voice-assistant-groq.vercel.app)
 [![Python](https://img.shields.io/badge/Python-3.12+-blue?logo=python&logoColor=white)](https://www.python.org/)
-[![Groq](https://img.shields.io/badge/Groq-Ultra%20Low%20Latency-00A86B?logo=groq&logoColor=white)](https://groq.com/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-Web%20UI-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi&logoColor=white)](https://sofia-voice-backend.onrender.com/docs)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js&logoColor=white)](https://ai-voice-assistant-groq.vercel.app)
+[![Groq](https://img.shields.io/badge/Groq-Ultra%20Low%20Latency-orange?logo=thunderbird&logoColor=white)](https://groq.com)
+[![Vercel](https://img.shields.io/badge/Vercel-Frontend-black?logo=vercel&logoColor=white)](https://ai-voice-assistant-groq.vercel.app)
+[![Render](https://img.shields.io/badge/Render-Backend-46E3B7?logo=render&logoColor=white)](https://sofia-voice-backend.onrender.com/docs)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 <div align="center">
-  <h1>AI Voice Assistant Groq</h1>
-  <p><strong>Intelligent Voice Assistant with Ultra-Low Latency</strong></p>
-  <p>Listen, understand, respond, and speak – real-time conversation powered by Groq + Llama 3.3.</p>
-
+  <h1>🎙️ SofiaVoice — Rs4Machine</h1>
+  <img src="sofia-voice.gif" alt="SofiaVoice Demo" width="100%" />
+  <p><strong>Voice Intelligence System v2.0</strong></p>
+  <p>AI voice assistant — speaks, understands and responds in real time.</p>
   <p>
-    <a href="https://github.com/raphaelmendes-dev"><strong>My GitHub</strong></a> •
-    <a href="https://www.linkedin.com/in/raphaelmendes-dev/">LinkedIn</a> •
+    <a href="https://ai-voice-assistant-groq.vercel.app" target="_blank"><strong>🚀 Live App</strong></a> •
+    <a href="https://sofia-voice-backend.onrender.com/docs" target="_blank"><strong>📡 API Docs</strong></a> •
+    <a href="https://github.com/raphaelmendes-dev"><strong>GitHub</strong></a> •
     <a href="mailto:python.dev.raphael@gmail.com">Contact</a>
   </p>
-
-  <p><em>README in <a href="README.md">Português</a></em></p>
+  <p><em>README em <a href="README.md">Português</a></em></p>
 </div>
+
+---
 
 ## 🎯 Overview
 
-Multilingual voice conversational assistant that:
-- Captures audio (recording or upload)
-- Transcribes using Whisper
-- Processes with Groq (Llama 3.3) for ultra-fast responses
-- Synthesizes natural voice output (gTTS)
+**SofiaVoice** is an intelligent voice assistant built by **Rs4Machine**. With a single click on the microphone, it listens, transcribes, processes and responds in voice — all in under 3 seconds, powered by Groq's ultra-fast inference infrastructure.
 
-Designed for **ultra-low latency** (Groq LPU™) and **deterministic audio/text handling**, perfect for real-world applications like customer support, education, or automation.
+- 🎤 In-browser voice capture (Web Audio API)
+- 🧠 Transcription with Whisper Large v3 via Groq
+- 💬 Intelligent responses with LLaMA 3.3 70B
+- 🔊 Text-to-speech in Brazilian Portuguese (gTTS)
+- 🖥️ Terminal-style interface with animated visualizer
+- 📝 Conversation logs saved automatically
 
-Customizable persona (e.g., elegant Jarvis or financial agent).
+---
 
-## ✨ Key Features
+## 🏗️ Architecture
 
-- Audio recording and file upload (WAV/MP3/M4A)
-- Automatic multilingual transcription (Whisper)
-- Intelligent responses with Groq + Llama 3.3 (< 500ms latency)
-- Natural voice synthesis in PT-BR (gTTS)
-- Interactive Streamlit interface (chat + settings)
-- Conversation history persistence + logs
-- Adjustable temperature, max tokens, and speech speed
+```
+ai-voice-assistant-groq/
+├── frontend/                        → Next.js 15 (Vercel)
+│   ├── app/
+│   │   └── sofia-voice/
+│   │       └── page.jsx             → Main orchestrator
+│   ├── components/SofiaVoice/
+│   │   ├── VoiceVisualizer.jsx      → State-driven animated circle
+│   │   ├── MicButton.jsx            → Microphone button
+│   │   ├── TerminalLog.jsx          → Terminal-style log
+│   │   └── StatusBadge.jsx          → AI status badge
+│   ├── hooks/
+│   │   └── useSofiaVoice.js         → Logic + backend calls
+│   ├── constants/
+│   │   └── tokens.js                → Rs4Machine Design DNA
+│   └── styles/
+│       └── sofia-voice.css          → Animations and keyframes
+└── backend/                         → Python + FastAPI (Render)
+    ├── main.py                      → FastAPI app + CORS
+    ├── config.py                    → Environment variables
+    ├── requirements.txt
+    ├── routers/
+    │   └── voice.py                 → API endpoints
+    └── services/
+        ├── stt.py                   → Whisper — audio → text
+        ├── llm.py                   → LLaMA — text → response
+        └── tts.py                   → gTTS — text → speech
+```
 
-Flow: Audio → Deterministic transcription → Fast LLM → Natural voice.
+---
+
+## ✨ Features
+
+- Browser-native voice recording — no plugins required
+- Automatic transcription with Whisper Large v3
+- Contextual responses with conversation history
+- PT-BR text-to-speech with gTTS
+- Full pipeline in a single endpoint (`/api/voice`)
+- Animated visualizer with 4 states: STANDBY · LISTENING · PROCESSING · SPEAKING
+- Real-time terminal log with timestamps
+- Daily conversation log saved to file
+
+---
 
 ## 🛠️ Tech Stack
 
-- LLM / Inference → Groq Cloud (Llama 3.3)
-- Speech-to-Text → OpenAI Whisper
-- Text-to-Speech → gTTS (Google Text-to-Speech)
-- UI → Streamlit (interactive web app)
-- Audio Handling → sounddevice, scipy, playsound
-- Environment → python-dotenv
+| Layer | Technology |
+|---|---|
+| Frontend | Next.js 15 + React |
+| Styling | CSS-in-JS + Rs4Machine Design Tokens |
+| Backend | Python 3.12+ + FastAPI + uvicorn |
+| Transcription | Whisper Large v3 (Groq) |
+| AI | LLaMA 3.3 70B (Groq) |
+| Voice | gTTS (PT-BR) |
+| Frontend Deploy | Vercel |
+| Backend Deploy | Render |
 
-## 🚀 Quick Start
+---
 
-- Clone the repositoryBashgit clone https://github.com/raphaelmendes-dev/ai-voice-assistant-groq.git
-- cd ai-voice-assistant-groq
-- Create virtual environmentBashpython -m venv venv
-- venv\Scripts\activate  # Windows
-- or source venv/bin/activate  # Linux/Mac
-- Install dependenciesBashpip install -r requirements.txt
-- Set up API key in .envtextGROQ_API_KEY=your-groq-key-here
-- Run the web interfaceBashstreamlit run src/app_streamlit.py
+## 🚀 Running Locally
 
-Access: http://localhost:8501
-(For CLI mode: python src/main.py)
+### Backend
+```bash
+cd backend
+python -m venv .venv
+source .venv/bin/activate    # Linux/Mac
+.venv\Scripts\activate       # Windows
+pip install -r requirements.txt
+```
 
-## 📊 Highlights & Differentiators
+Create `.env` file inside `backend/`:
+```env
+GROQ_API_KEY=your_key_here
+```
 
-- Ultra-low latency thanks to Groq LPU™
-- Deterministic audio pipeline (STT/TTS)
-- Fully customizable persona via system prompt
-- Multilingual support (auto detection + adapted responses)
-- Conversation logs for debugging and analysis
+```bash
+uvicorn main:app --reload --port 8000
+```
+API available at: `http://localhost:8000/docs`
 
-## 🤝 Contribute
-Contributions welcome! Fork → branch → PR.
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-Voice assistants, voice-to-text/text-to-voice systems, hybrid architectures (deterministic + LLM), Groq, FastAPI, Azure AI, Redis, low-latency solutions.
-Functional projects delivered.
+Create `.env.local` file inside `frontend/`:
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
 
-Contact: raphaelmendes-dev | python.dev.raphael@gmail.com | LinkedIn
+App available at: `http://localhost:3000/sofia-voice`
 
+> ⚠️ Run both terminals at the same time.
 
-## ⭐ Star if you like it!
+---
 
+## 📡 API Endpoints
 
-Last update: March 2026
-    C --> D["gTTS - Text-to-Speech Synthesis"]
-    D --> E["Audio & Text Output"]
-    E --> F["Streamlit UI - Playback + Chat"]
+| Method | Route | Description |
+|---|---|---|
+| GET | `/health` | API status |
+| POST | `/api/transcribe` | Audio → text (Whisper) |
+| POST | `/api/chat` | Text → AI response |
+| POST | `/api/speak` | Text → base64 audio |
+| POST | `/api/voice` | Full pipeline in one call |
+
+---
+
+## 🔑 Environment Variables
+
+| Variable | Where | Description |
+|---|---|---|
+| `GROQ_API_KEY` | backend `.env` | Groq API key |
+| `NEXT_PUBLIC_API_URL` | frontend `.env.local` | Backend URL |
+
+---
+
+## 🤝 Contact
+
+**Rs4Machine** — Autonomous Agents Corporation  
+CEO: Raphael Mendes  
+📧 python.dev.raphael@gmail.com  
+🔗 [github.com/raphaelmendes-dev](https://github.com/raphaelmendes-dev)
+
+---
+
+⭐ Star this repo if it helped you!
+
+*Last updated: March 2026*
