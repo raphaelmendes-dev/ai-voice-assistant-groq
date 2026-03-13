@@ -8,13 +8,10 @@ app = FastAPI(
     version="2.0.0",
 )
 
-# Libera o frontend Next.js (local e Vercel)
+# CORS liberado para produção (Vercel + local)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "https://*.vercel.app",
-    ],
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
