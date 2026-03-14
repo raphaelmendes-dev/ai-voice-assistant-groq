@@ -10,6 +10,7 @@ class STTService:
     def transcribe(self, audio_bytes: bytes, filename: str = "audio.wav") -> str:
         """
         Recebe bytes de áudio, retorna texto transcrito.
+        Prompt de contexto melhora precisão em PT-BR.
         """
         try:
             transcription = self.client.audio.transcriptions.create(
@@ -17,6 +18,11 @@ class STTService:
                 model=self.model,
                 response_format="verbose_json",
                 language="pt",
+                prompt=(
+                    "Transcreva exatamente o que foi dito em português brasileiro. "
+                    "Preserve verbos no imperativo como: me dê, me ajude, me mostre, faça, crie. "
+                    "Não corrija nem interprete, apenas transcreva fielmente."
+                ),
             )
             return transcription.text or ""
         except Exception as e:
