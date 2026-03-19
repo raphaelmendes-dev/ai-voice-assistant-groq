@@ -8,6 +8,7 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 <div align="center">
+<img src="assets/Rs4Machine.png" alt="Rs4Machine Logo" width="380" />
   <h1>🎙️ SofiaVoice — Rs4Machine</h1>
   <img src="sofia-voice.gif" alt="SofiaVoice Demo" width="100%" />
   <p><strong>Voice Intelligence System v2.0</strong></p>
